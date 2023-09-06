@@ -1,0 +1,28 @@
+<div class="home-container">
+  <section class="home-container--header">
+    <app-search
+      [products]="products"
+      (onSearchProduct)="searchProducts($event)"
+    ></app-search>
+    <a class="btn btn-add" [routerLink]="['/register']">Agregar</a>
+  </section>
+  <section class="home-container--body">
+    <div class="card--container">
+      <app-products-card [products]="filteredProducts"></app-products-card>
+    </div>
+
+    <div class="table--container">
+      <app-products-table [products]="filteredProducts"></app-products-table>
+    </div>
+
+    <div class="body--footer">
+      <span>{{ filteredProducts.length }} resultados</span>
+      <select name="limit" id="limit">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+      </select>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,36 @@
+<table class="body--table">
+  <tr>
+    <th>Logo</th>
+    <th>Nombre del producto</th>
+    <th>
+      <div class="align-row">
+        Descripción<mat-icon class="bp-icon">help</mat-icon>
+      </div>
+    </th>
+    <th>
+      <div class="align-row">
+        Fecha de liberación<mat-icon class="bp-icon">help</mat-icon>
+      </div>
+    </th>
+    <th>
+      <div class="align-row">
+        Fecha de reestructuración<mat-icon class="bp-icon">help</mat-icon>
+      </div>
+    </th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let product of products">
+    <td>
+      <img
+        class="product-logo"
+        src="{{ product.logo }}"
+        alt="{{ product.name }}"
+      />
+    </td>
+    <td>{{ product.name }}</td>
+    <td>{{ product.description }}</td>
+    <td>{{ product.date_release | date : "M/d/yyyy" }}</td>
+    <td>{{ product.date_revision | date : "M/d/yyyy" }}</td>
+    <td class="actions"><app-actions></app-actions></td>
+  </tr>
+</table>

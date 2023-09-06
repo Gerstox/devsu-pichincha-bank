@@ -1,0 +1,191 @@
+<!-- <div class="back">
+  <a class="btn btn-link" [routerLink]="['/']">
+    <mat-icon>home</mat-icon>
+    Ir al home
+  </a>
+</div> -->
+<section class="register-form">
+  <h1>Formulario de registro</h1>
+  <hr />
+  <div>
+    <form [formGroup]="productForm" (submit)="submitForm()">
+      <div class="form-group">
+        <div class="form-control">
+          <label class="font-bold" for="id">ID</label>
+          <input
+            class="custom-input"
+            [ngClass]="
+              id?.invalid && (id?.dirty || id?.touched) ? 'input-error' : ''
+            "
+            id="id"
+            name="id"
+            type="text"
+            formControlName="id"
+            required
+          />
+          <div *ngIf="id?.invalid && (id?.dirty || id?.touched)">
+            <p *ngIf="id?.errors?.['required']" class="error">
+              El ID es requerido.
+            </p>
+            <p *ngIf="id?.errors?.['minlength']" class="error">
+              El ID debe tener al menos 3 caracters.
+            </p>
+            <p *ngIf="id?.errors?.['maxlength']" class="error">
+              El ID debe tener hasta 10 caracteres.
+            </p>
+          </div>
+        </div>
+        <div class="form-control">
+          <label class="font-bold" for="name">Nombre</label>
+          <input
+            class="custom-input"
+            [ngClass]="
+              name?.invalid && (name?.dirty || name?.touched)
+                ? 'input-error'
+                : ''
+            "
+            id="name"
+            type="text"
+            formControlName="name"
+            required
+          />
+          <div *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+            <p *ngIf="name?.errors?.['required']" class="error">
+              El nombre es requerido.
+            </p>
+            <p *ngIf="name?.errors?.['minlength']" class="error">
+              El nombre debe tener al menos 5 caracters.
+            </p>
+            <p *ngIf="name?.errors?.['maxlength']" class="error">
+              El nombre debe tener hasta 100 caracteres.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-control">
+          <label class="font-bold" for="description">Descripción</label>
+          <input
+            class="custom-input"
+            [ngClass]="
+              description?.invalid &&
+              (description?.dirty || description?.touched)
+                ? 'input-error'
+                : ''
+            "
+            id="description"
+            name="description"
+            type="text"
+            formControlName="description"
+            required
+          />
+          <div
+            *ngIf="
+              description?.invalid &&
+              (description?.dirty || description?.touched)
+            "
+          >
+            <p *ngIf="description?.errors?.['required']" class="error">
+              La descripción es requerida.
+            </p>
+            <p *ngIf="description?.errors?.['minlength']" class="error">
+              La descripción debe tener al menos 10 caracters.
+            </p>
+            <p *ngIf="description?.errors?.['maxlength']" class="error">
+              La descripción debe tener hasta 200 caracteres.
+            </p>
+          </div>
+        </div>
+        <div class="form-control">
+          <label class="font-bold" for="logo">Logo</label>
+          <input
+            class="custom-input"
+            [ngClass]="
+              logo?.invalid && (logo?.dirty || logo?.touched)
+                ? 'input-error'
+                : ''
+            "
+            id="logo"
+            name="logo"
+            type="text"
+            formControlName="logo"
+            required
+          />
+          <div *ngIf="logo?.invalid && (logo?.dirty || logo?.touched)">
+            <p *ngIf="logo?.errors?.['required']" class="error">
+              El logo es requerido.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-control">
+          <label class="font-bold" for="date-release">Fecha liberación</label>
+          <input
+            class="custom-input"
+            [ngClass]="
+              dateRelease?.invalid &&
+              (dateRelease?.dirty || dateRelease?.touched)
+                ? 'input-error'
+                : ''
+            "
+            id="date-release"
+            name="date-release"
+            type="date"
+            formControlName="dateRelease"
+            required
+          />
+          <div
+            *ngIf="
+              dateRelease?.invalid &&
+              (dateRelease?.dirty || dateRelease?.touched)
+            "
+          >
+            <p *ngIf="dateRelease?.errors?.['required']" class="error">
+              La fecha de liberación es requerida.
+            </p>
+          </div>
+        </div>
+        <div class="form-control">
+          <label class="font-bold" for="date-revision">Fecha revisión</label>
+          <input
+            class="custom-input"
+            [ngClass]="
+              dateRevision?.invalid &&
+              (dateRevision?.dirty || dateRevision?.touched)
+                ? 'input-error'
+                : ''
+            "
+            id="date-revision"
+            name="date-revision"
+            type="date"
+            formControlName="dateRevision"
+            required
+          />
+          <div
+            *ngIf="
+              dateRevision?.invalid &&
+              (dateRevision?.dirty || dateRevision?.touched)
+            "
+          >
+            <p *ngIf="dateRevision?.errors?.['required']" class="error">
+              La fecha de revisión es requerida.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="form-buttons mt-5 mb-3">
+        <button class="btn btn-secondary w-120" type="button" (click)="reset()">
+          Reiniciar
+        </button>
+        <button
+          [disabled]="productForm.invalid"
+          class="btn btn-add w-120"
+          type="submit"
+        >
+          Enviar
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

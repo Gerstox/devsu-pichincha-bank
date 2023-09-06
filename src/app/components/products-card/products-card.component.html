@@ -1,0 +1,23 @@
+<div class="card--container">
+  <div class="body--card" *ngFor="let product of products">
+    <div class="product-logo--card">
+      <img src="{{ product.logo }}" alt="{{ product.name }}" />
+    </div>
+    <p><strong>Nombre del producto</strong><br />{{ product.name }}</p>
+    <p><strong>Descripción</strong><br />{{ product.description }}</p>
+    <p>
+      <strong>Fecha de liberación</strong><br />{{
+        product.date_release | date : "M/d/yyyy"
+      }}
+    </p>
+    <p>
+      <strong>Fecha de reestructuración</strong><br />{{
+        product.date_revision | date : "M/d/yyyy"
+      }}
+    </p>
+    <div class="card--actions">
+      <button class="btn btn-edit">Editar</button>
+      <button class="btn btn-delete">Eliminar</button>
+    </div>
+  </div>
+</div>
