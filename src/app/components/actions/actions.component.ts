@@ -10,7 +10,14 @@ import { ProductsService } from 'src/app/services/products.service';
   styleUrls: ['./actions.component.css']
 })
 export class ActionsComponent {
-  @Input() product!: Product;
+  @Input() product: Product = {
+    id: '',
+    name: '',
+    description: '',
+    logo: '',
+    date_release: '',
+    date_revision: ''
+  };
 
   constructor(
     private productService: ProductsService,
@@ -22,14 +29,13 @@ export class ActionsComponent {
     this.modalService.open(deleteModal, {
       size: 'lg',
       title: 'Eliminacion',
-      reference: `[ ${this.product.id} ] ${this.product.name}`
+      reference: `[ ${this.product?.id} ] ${this.product?.name}`
     })
       .subscribe(action => {
         if (action === 'confirm') {
-          // Corregir deprecated subscribe
-          this.productService.deleteProduct(this.product.id)
+          this.productService.deleteProduct(this.product?.id)
             .subscribe({
-              next: response => {
+              next: () => {
                 this.alertService.success('Se ha eliminado el producto correctamente.', {});
               },
               error: error => {

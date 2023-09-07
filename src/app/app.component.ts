@@ -7,7 +7,7 @@ import { AlertService } from './services/alert.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'devsu-pichincha-bank';
+  //title: string = 'devsu-pichincha-bank';
 
   options = {
     autoClose: false,

@@ -17,6 +17,7 @@ import { AlertService } from 'src/app/services/alert.service';
 })
 export class RegisterComponent {
 
+  title: string = 'Formulario de registro';
   product!: Product | undefined;
   editing: boolean = false;
   canEditId: boolean = true;
