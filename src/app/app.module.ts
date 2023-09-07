@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppComponent } from './app.component';
 
@@ -16,6 +18,7 @@ import { ProductsCardComponent } from './components/products-card/products-card.
 import { AppRoutingModule } from './app-routing.module';
 import { AuthInterceptor } from './interceptors/auth-interceptor';
 import { SearchComponent } from './components/search/search.component';
+import { AlertComponent } from './components/alerts/alert.component';
 
 @NgModule({
   declarations: [
@@ -26,16 +29,19 @@ import { SearchComponent } from './components/search/search.component';
     ActionsComponent,
     ProductsTableComponent,
     ProductsCardComponent,
-    SearchComponent
+    SearchComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
+    NgxPaginationModule
   ],
   providers: [
+    DatePipe,
     {
       provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
     }

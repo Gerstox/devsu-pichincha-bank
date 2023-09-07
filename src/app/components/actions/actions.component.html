@@ -2,7 +2,23 @@
   <!-- <img class="dropimg" src="../../assets/dots.svg" alt="dots" /> -->
   <mat-icon>more_vert</mat-icon>
   <div class="dropdown-content">
-    <a href="#">Editar</a>
-    <a href="#">Eliminar</a>
+    <a [routerLink]="['/products/edit', product.id]" href="#">
+      <div class="link-item">
+        Editar<mat-icon class="green-color">edit</mat-icon>
+      </div>
+    </a>
+    <a (click)="showDeleteModal(deleteModal)">
+      <div class="link-item">
+        Eliminar<mat-icon class="red-color">delete_outline</mat-icon>
+      </div>
+    </a>
   </div>
 </div>
+<ng-template #deleteModal>
+  <div>¿Está seguro de que quiere eliminar el producto?</div>
+</ng-template>
+
+<!-- <app-modal id="modal_1" class="hhidden">
+  Dialog Header
+  <button>Close Dialog</button>
+</app-modal> -->

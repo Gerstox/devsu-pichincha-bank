@@ -5,7 +5,8 @@ import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'products/create', component: RegisterComponent },
+  { path: 'products/edit/:productId', component: RegisterComponent },
 ];
 
 @NgModule({

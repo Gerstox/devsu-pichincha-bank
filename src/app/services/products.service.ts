@@ -23,11 +23,16 @@ export class ProductsService {
   }
 
   updateProduct(product: Product) {
-    return this.http.patch<Product>(this.apiUrl, product);
+    return this.http.put<Product>(this.apiUrl, product);
   }
 
   deleteProduct(id: string) {
-    return this.http.delete<Product>(this.apiUrl);
+    const params = {
+      params: {
+        id
+      }
+    }
+    return this.http.delete<Product>(this.apiUrl, params);
   }
 
   productVerify(id: string) {

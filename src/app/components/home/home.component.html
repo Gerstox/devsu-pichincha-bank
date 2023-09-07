@@ -4,24 +4,29 @@
       [products]="products"
       (onSearchProduct)="searchProducts($event)"
     ></app-search>
-    <a class="btn btn-add" [routerLink]="['/register']">Agregar</a>
+    <a class="btn btn-add" [routerLink]="['/products/create']">Agregar</a>
   </section>
   <section class="home-container--body">
     <div class="card--container">
-      <app-products-card [products]="filteredProducts"></app-products-card>
+      <app-products-card
+        [products]="filteredProducts"
+        [pageSize]="pageSize"
+      ></app-products-card>
     </div>
 
     <div class="table--container">
-      <app-products-table [products]="filteredProducts"></app-products-table>
+      <app-products-table
+        [products]="filteredProducts"
+        [pageSize]="pageSize"
+      ></app-products-table>
     </div>
 
     <div class="body--footer">
       <span>{{ filteredProducts.length }} resultados</span>
-      <select name="limit" id="limit">
+      <select #selectSize (change)="changePageSize(selectSize.value)">
         <option value="5">5</option>
         <option value="10">10</option>
         <option value="15">15</option>
-        <option value="20">20</option>
       </select>
     </div>
   </section>

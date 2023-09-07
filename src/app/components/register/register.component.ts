@@ -1,9 +1,14 @@
-import { Component, Input } from '@angular/core';
-import { Product } from '../../models/product.model';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { formatDate } from '@angular/common';
-import { ProductsService } from 'src/app/services/products.service';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
+import { Product } from '../../models/product.model';
+import { FormBuilder } from '@angular/forms';
+import { ProductsService } from 'src/app/services/products.service';
+import { createProductForm, makeProduct } from 'src/app/utils/form-utils';
+import { transformDate, addYear } from 'src/app/utils/utils';
+import { existId, dateGreatherOrEqualThanToday } from 'src/app/utils/custom-validators';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-register',
@@ -12,88 +17,105 @@ import { ProductsService } from 'src/app/services/products.service';
 })
 export class RegisterComponent {
 
-  @Input() product!: Product;
+  product!: Product | undefined;
+  editing: boolean = false;
+  canEditId: boolean = true;
+  readonly canEditDateRevision: boolean = false;
 
-  productForm = new FormGroup({
-    id: new FormControl(this.product?.id || '', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(10)
-    ]),
-    name: new FormControl(this.product?.name || '', [
-      Validators.required,
-      Validators.minLength(5),
-      Validators.maxLength(100)
-    ]),
-    description: new FormControl(this.product?.description || '', [
-      Validators.required,
-      Validators.minLength(10),
-      Validators.maxLength(200)
-    ]),
-    logo: new FormControl(this.product?.logo || '', [
-      Validators.required
-    ]),
-    dateRelease: new FormControl(this.product?.date_release || '', [
-      Validators.required
-    ]),
-    dateRevision: new FormControl(this.product?.date_revision || '', [
-      Validators.required
-    ]),
-  });
+  productForm = createProductForm(this.fb, this.productService, this.product!);
 
-  // productForm = new FormGroup({
-  //   id: new FormControl(''),
-  //   name: new FormControl(''),
-  //   description: new FormControl(''),
-  //   logo: new FormControl(''),
-  //   dateRelease: new FormControl(''),
-  //   dateRevision: new FormControl(''),
-  // });
+  constructor(
+    private fb: FormBuilder,
+    private productService: ProductsService,
+    private route: ActivatedRoute,
+    private datePipe: DatePipe,
+    private alertService: AlertService
+  )
+  {
+    const productId: string = this.route.snapshot.params['productId'];
+    if (productId) {
+      this.productService.getProducts()
+      .subscribe(products => {
+        this.product = products.find((product) => product.id === productId);
+        this.productForm.patchValue({
+          ...this.product,
+          dateRelease: transformDate(this.datePipe, this.product!.date_release),
+          dateRevision: transformDate(this.datePipe, this.product!.date_revision)
+        });
 
-  constructor(private productService: ProductsService) {}
+        this.canEditId = false;
+        this.editing = true;
+      });
+    } else {
+      this.id?.addAsyncValidators(existId(this.productService));
+      this.dateRelease?.addValidators(dateGreatherOrEqualThanToday());
+    }
+  }
 
   get id() { return this.productForm.get('id'); }
   get name() { return this.productForm.get('name'); }
   get description() { return this.productForm.get('description'); }
   get logo() { return this.productForm.get('logo'); }
   get dateRelease() { return this.productForm.get('dateRelease'); }
-  get dateRevision() { return this.productForm.get('id'); }
+  get dateRevision() { return this.productForm.get('dateRevision'); }
 
   submitForm() {
-    this.product = {
-      id: this.productForm.value.id ?? '',
-      name: this.productForm.value.name ?? '',
-      description: this.productForm.value.description ?? '',
-      logo: this.productForm.value.logo ?? '',
-      date_release: this.productForm.value.dateRelease ?? '',
-      date_revision: this.productForm.value.dateRevision ?? '',
+    this.product = makeProduct(this.productForm);
+
+    if (!this.editing) {
+      this.createProduct(this.productForm.get(['id'])!.value, this.product);
+    } else {
+      this.editProduct(this.product);
     }
-    console.log(this.product);
-
-    this.productService.productVerify(this.productForm.value.id || '')
-      .subscribe(exist => {
-        if(!exist) {
-            this.productService.createProduct(this.product)
-            .subscribe(product => {
-              console.log(product);
-            });
-            console.log('Este id esta disponible');
-        } else {
-          console.log('Este id esta en uso');
-        }
-    })
-
   }
+
+  createProduct(id: string, product: Product) {
+    this.productService.productVerify(id || '')
+      .subscribe({
+        next: exist => {
+          if(!exist) {
+            this.productService.createProduct(product!)
+            .subscribe({
+              next: () => {
+                this.reset();
+                this.alertService.success('Se ha creado el producto correctamente.', {});
+              },
+              error: error => {
+                console.log(error);
+                this.alertService.error('Ha ocurrido un error...', {});
+              }
+            });
+          } else {
+            this.alertService.warn('Este id esta en uso.', {});
+          }
+        },
+        error: error => {
+          console.log(error);
+          this.alertService.error('Ha ocurrido un error...', {});
+        }
+      });
+  }
+
+  editProduct(product: Product) {
+    this.productService.updateProduct(product!)
+      .subscribe(
+        {
+          next: () => {
+            this.alertService.success('Se ha editado el producto correctamente.', {});
+          },
+          error: error => {
+            console.log(error);
+            this.alertService.error('Ha ocurrido un error...', {});
+          }
+        });
+  }
+
   reset() {
     this.productForm.reset();
   }
 
-  /**
-   * Add custom validators
-   *
-   * existId
-   * dateGreatherOrEqualThanToday
-   * dateTodayPlus1Year
-   */
-
+  calcDateRevision(dateRelease: string) {
+    const dateRevision = transformDate(this.datePipe, addYear(dateRelease));
+    this.productForm.controls['dateRevision'].setValue(dateRevision);
+  }
 }

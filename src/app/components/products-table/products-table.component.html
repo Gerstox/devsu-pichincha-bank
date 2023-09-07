@@ -1,6 +1,6 @@
 <table class="body--table">
   <tr>
-    <th>Logo</th>
+    <th [ngStyle]="{ width: '100px' }">Logo</th>
     <th>Nombre del producto</th>
     <th>
       <div class="align-row">
@@ -19,7 +19,12 @@
     </th>
     <th></th>
   </tr>
-  <tr *ngFor="let product of products">
+  <tr
+    *ngFor="
+      let product of products
+        | paginate : { itemsPerPage: pageSize, currentPage: page }
+    "
+  >
     <td>
       <img
         class="product-logo"
@@ -31,6 +36,21 @@
     <td>{{ product.description }}</td>
     <td>{{ product.date_release | date : "M/d/yyyy" }}</td>
     <td>{{ product.date_revision | date : "M/d/yyyy" }}</td>
-    <td class="actions"><app-actions></app-actions></td>
+    <td class="actions">
+      <app-actions [product]="product"></app-actions>
+    </td>
   </tr>
 </table>
+<div class="app-pagination">
+  <pagination-controls
+    class="my-pagination"
+    (pageChange)="page = $event"
+    previousLabel="Anterior"
+    nextLabel="Siguiente"
+    [maxSize]="5"
+    [autoHide]="true"
+    [responsive]="true"
+    [directionLinks]="true"
+  >
+  </pagination-controls>
+</div>

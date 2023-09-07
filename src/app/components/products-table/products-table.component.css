@@ -30,3 +30,11 @@ table.body--table th, table.body--table td {
 .align-row .mat-icon {
   width: 30px;
 }
+
+.app-pagination {
+  margin-top: 1.25rem;
+}
+
+.my-pagination ::ng-deep .ngx-pagination .current {
+  background: var(--primary-color-hover);
+}

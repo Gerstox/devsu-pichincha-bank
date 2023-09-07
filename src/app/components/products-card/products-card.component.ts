@@ -8,4 +8,7 @@ import { Product } from 'src/app/models/product.model';
 })
 export class ProductsCardComponent {
  @Input() products: Product[] = [];
+ @Input() pageSize: number = 5;
+
+  page: number = 1;
 }

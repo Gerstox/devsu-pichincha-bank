@@ -1,5 +1,11 @@
 <div class="card--container">
-  <div class="body--card" *ngFor="let product of products">
+  <div
+    class="body--card"
+    *ngFor="
+      let product of products
+        | paginate : { itemsPerPage: pageSize, currentPage: page }
+    "
+  >
     <div class="product-logo--card">
       <img src="{{ product.logo }}" alt="{{ product.name }}" />
     </div>
@@ -20,4 +26,17 @@
       <button class="btn btn-delete">Eliminar</button>
     </div>
   </div>
+</div>
+
+<div class="app-pagination">
+  <pagination-controls
+    class="my-pagination"
+    (pageChange)="page = $event"
+    previousLabel="Anterior"
+    nextLabel="Siguiente"
+    [maxSize]="5"
+    [autoHide]="true"
+    [directionLinks]="true"
+  >
+  </pagination-controls>
 </div>
