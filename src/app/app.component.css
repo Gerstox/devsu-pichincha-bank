@@ -1,0 +1,26 @@
+.parent {
+  background-color: var(--bg-color);
+}
+.container {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 10px;
+}
+
+@media only screen and (min-width: 768px) {
+  .container {
+    margin: 0 20px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .container {
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .container {
+    max-width: 1100px;
+  }
+}

@@ -1,0 +1,18 @@
+<div class="dropdown">
+  <mat-icon>more_vert</mat-icon>
+  <div class="dropdown-content">
+    <a [routerLink]="['/products/edit', product.id]" href="#">
+      <div class="link-item">
+        Editar<mat-icon class="green-color">edit</mat-icon>
+      </div>
+    </a>
+    <a class="btn-del" (click)="showDeleteModal(deleteModal)">
+      <div class="link-item">
+        Eliminar<mat-icon class="red-color">delete_outline</mat-icon>
+      </div>
+    </a>
+  </div>
+</div>
+<ng-template #deleteModal>
+  <div>¿Está seguro de que quiere eliminar el producto?</div>
+</ng-template>

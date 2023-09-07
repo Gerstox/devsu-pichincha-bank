@@ -1,1 +1,211 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --primary-color: #FFDE00;
+  --primary-color-hover: #eccf07;
+  --secondary-color: #0F265C;
+  --bg-color: #F5F6FA;
+  --bg-white: #FFF;
+  --icon-color: #BCC3D3;
+  --info-color: #8A8B8F;
+  --text-color: #636466;
+  --border-color: #dfdfdf;
+
+  --edit-color: #8ef1b7;
+  --edit-color-hover: #73ef92;
+  --delete-color: #f5979a;
+  --delete-color-hover: #f37481;
+
+  --bg-warning: #fff5b8;
+
+  --bg-disabled: #fffce9;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+}
+
+.btn {
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 5px;
+  padding: 15px 20px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn-add {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: solid 1px var(--primary-color);
+}
+
+.btn-add:hover {
+  background-color: var(--primary-color-hover);
+}
+
+.btn-disabled {
+  background-color: var(--bg-disabled);
+  color: var(--info-color);
+  border: solid 1px var(--bg-disabled);
+  cursor: not-allowed;
+}
+
+
+
+.btn-secondary {
+  background-color: var(--bg-color);
+  color: var(--secondary-color);
+  border: solid 1px var(--bg-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--border-color);
+}
+
+.btn-link {
+  background-color: var(--bg-color);
+  color: var(--secondary-color);
+  border: solid 1px var(--bg-color);
+}
+
+.btn-link:hover {
+  background-color: var(--border-color);
+  text-decoration: underline;
+}
+
+.btn-edit {
+  background-color: var(--edit-color);
+  color: var(--secondary-color);
+  border: solid 1px var(--edit-color);
+}
+
+.btn-edit:hover {
+  background-color: var(--edit-color-hover);
+}
+
+.btn-delete {
+  background-color: var(--delete-color);
+  color: var(--secondary-color);
+  border: solid 1px var(--delete-color);
+}
+
+.btn-delete:hover {
+  background-color: var(--delete-color-hover);
+}
+.green-color {
+  color: var(--edit-color-hover);
+}
+
+.red-color {
+  color: var(--delete-color-hover);
+}
+
+.align-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.bp-icon {
+  color: var(--info-color);
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.mt-3 {
+  margin-top: 3rem;
+}
+
+.mt-5 {
+  margin-top: 5rem;
+}
+
+.mb-3 {
+  margin-bottom: 3rem;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+.w-120 {
+   width: 120px;
+}
+
+.custom-input {
+  border: 2px solid var(--border-color);
+  border-radius: 5px;
+  padding: 15px;
+  font-size: 16px;
+}
+
+.input-error {
+  border: 3px solid var(--delete-color);
+}
+
+.error {
+  text-align: left;
+  margin: 10px 0;
+  color: var(--delete-color);
+  font-weight: bold;
+  font-size: 14px;
+}
+.back {
+  width: 175px;
+}
+.back a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: initial;
+}
+
+
+.alert {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+  color: var(--text-color);
+  height: 60px;
+  font-size: 16px;
+}
+
+.alert-success {
+  background-color: var(--edit-color);
+}
+.alert-danger {
+  background-color: var(--delete-color);
+}
+.alert-warning {
+  background-color: var(--bg-warning);
+}
+
+.alert button {
+  background-color: transparent;
+  color: var(--text-color);
+  font-weight: 500;
+  font-size: 16px;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.alert button:hover {
+  border-bottom: 2px solid var(--text-color);
+}
+
+@media only screen and (min-width: 768px) {
+  .alert {
+    padding: 10px 50px;
+  }
+}

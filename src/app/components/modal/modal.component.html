@@ -1,0 +1,17 @@
+<div class="app-modal modal {{ size }}">
+  <div class="modal-header">
+    {{ title }}
+    <span class="modal-close" (click)="close()">x</span>
+  </div>
+  <div class="modal-content">
+    <ng-content></ng-content>
+    <!-- <div *ngIf="reference">Referencia: {{ reference }}</div> -->
+    <div class="modal-reference">{{ reference }}</div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-delete" (click)="submit()">Eliminar</button>
+    <button class="btn btn-link" (click)="close()">Cancelar</button>
+  </div>
+</div>
+
+<div class="modal-backdrop" (click)="close()"></div>

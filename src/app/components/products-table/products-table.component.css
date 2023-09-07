@@ -1,0 +1,40 @@
+table.body--table {
+  font-size: 14px;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: none;
+}
+table.body--table .actions {
+  text-align: center;
+}
+table.body--table .actions img {
+  width: 30px;
+}
+
+table.body--table tr {
+  border-bottom: 2px solid var(--border-color);
+}
+
+table.body--table th, table.body--table td {
+  text-align: left;
+  padding: 10px;
+  color: var(--text-color);
+}
+
+.product-logo {
+  width: 40px;
+  border-radius: 50%;
+}
+
+.align-row .mat-icon {
+  width: 30px;
+}
+
+.app-pagination {
+  margin-top: 1.25rem;
+}
+
+.my-pagination ::ng-deep .ngx-pagination .current {
+  background: var(--primary-color-hover);
+}

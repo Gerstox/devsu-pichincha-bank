@@ -1,0 +1,5 @@
+export const environment = {
+  production: false,
+  API_URL: 'https://tribu-ti-staffing-desarrollo-afangwbmcrhucqfh.z01.azurefd.net/ipf-msa-productosfinancieros',
+  AUTHOR_ID: '123456789'
+}
